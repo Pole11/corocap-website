@@ -13,6 +13,7 @@ DOCTYPE_START = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{}</title>
     <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/snowflake.css">
 </head>
 <body>
 """
@@ -80,8 +81,12 @@ for file_name in content_files:
         if i == "50":
             with open(CONTENT_PATH + file_name) as f:
                 content = f.read()
-                html = markdown2.markdown(content, extras=["footnotes, header-ids, highlightjs-lang", "smarty-pants", "strike", "toc", "wiki-tables", "tables", "fenced-code-blocks", "latex"])
-                # here make something specific to the file (home/gallery might be treated differently)
+                html = ""
+                match file_name:
+                    #case "gallery.md"
+                    #    html = generateGalleryHTML(content)
+                    case _:
+                        html = markdown2.markdown(content, extras=["footnotes, header-ids, highlightjs-lang", "smarty-pants", "strike", "toc", "wiki-tables", "tables", "fenced-code-blocks", "latex"])
                 content_dictionary[file_name] += html
             print("\t\tAdded actual content to content file: " + file_name)
         else:
